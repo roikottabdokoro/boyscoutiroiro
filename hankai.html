@@ -34,11 +34,29 @@
     --md-on-surface:#1D1B14;
     --md-on-surface-variant:#4C4739;
 
-    --shape-xl:28px;
-    --shape-l:20px;
-    --shape-m:14px;
-    --shape-s:10px;
-    --spring: cubic-bezier(.34,1.56,.64,1);
+    /* Expressive shape, elevation, motion, and state-layer tokens */
+    --shape-none:0;
+    --shape-xs:8px;
+    --shape-s:12px;
+    --shape-m:18px;
+    --shape-l:26px;
+    --shape-xl:34px;
+    --shape-xxl:48px;
+    --shape-full:999px;
+    --elevation-1:0 1px 2px rgba(44,38,23,.12), 0 2px 6px rgba(44,38,23,.08);
+    --elevation-2:0 4px 10px rgba(44,38,23,.13), 0 12px 28px rgba(44,38,23,.10);
+    --elevation-3:0 8px 20px rgba(44,38,23,.16), 0 20px 44px rgba(44,38,23,.12);
+    --duration-short:160ms;
+    --duration-medium:280ms;
+    --duration-long:480ms;
+    --easing-standard:cubic-bezier(.2,0,0,1);
+    --easing-emphasized:cubic-bezier(.2,.8,.2,1);
+    --easing-expressive:cubic-bezier(.34,1.56,.64,1);
+    --state-primary-hover:rgba(62,105,87,.10);
+    --state-primary-focus:rgba(62,105,87,.14);
+    --state-primary-pressed:rgba(62,105,87,.18);
+    --state-tertiary-hover:rgba(176,81,46,.12);
+    --state-on-primary:rgba(255,255,255,.16);
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
   html,body{margin:0;padding:0;}
@@ -62,24 +80,15 @@
 
   /* ---------- Top app bar ---------- */
   .app-bar{
-    position:relative;
-    overflow:hidden;
-    background: linear-gradient(135deg, var(--md-primary) 0%, #345B4A 100%);
-    color:var(--md-on-primary);
-    border-radius:0 0 32px 32px;
-    padding: 28px 20px 26px;
-    margin-bottom:18px;
-    box-shadow:0 8px 24px rgba(30,50,40,.25);
+    position:relative; isolation:isolate; overflow:hidden;
+    background:linear-gradient(135deg, var(--md-primary), #345B4A);
+    color:var(--md-on-primary); border-radius:0 0 var(--shape-xxl) var(--shape-xl);
+    padding:clamp(26px, 7vw, 42px) clamp(18px, 5vw, 30px) clamp(24px, 6vw, 34px);
+    margin:0 -14px 20px; box-shadow:var(--elevation-3);
   }
-  .app-bar::after{
-    content:"";
-    position:absolute;
-    width:200px; height:200px;
-    background: var(--md-tertiary-container);
-    opacity:.18;
-    border-radius:44% 56% 60% 40% / 50% 45% 55% 50%;
-    top:-90px; right:-60px;
-  }
+  .app-bar::before, .app-bar::after{content:""; position:absolute; z-index:-1;}
+  .app-bar::before{width:230px;height:115px; background:var(--md-primary-container); opacity:.16; border-radius:70% 20% 64% 32% / 68% 48% 58% 28%; bottom:-62px; left:-34px; transform:rotate(-12deg);}
+  .app-bar::after{width:210px;height:210px; background:var(--md-tertiary-container); opacity:.2; border-radius:44% 56% 60% 40% / 50% 45% 55% 50%; top:-96px; right:-62px; transform:rotate(18deg);}
   .app-bar-row{ display:flex; align-items:center; gap:14px; position:relative; z-index:1; }
   .app-bar-badge{
     width:50px; height:50px;
@@ -87,42 +96,42 @@
     display:flex; align-items:center; justify-content:center;
     background: var(--md-tertiary-container);
     color: var(--md-on-tertiary-container);
-    border-radius:16px;
+    border-radius:var(--shape-m) var(--shape-xs) var(--shape-l) var(--shape-s);
     font-size:24px;
+    box-shadow:var(--elevation-1);
   }
   .app-bar h1{
     font-family:'M PLUS Rounded 1c', sans-serif;
     font-weight:800;
-    font-size:21px;
-    margin:0 0 3px;
+    font-size:clamp(20px, 5.6vw, 29px);
+    line-height:1.18;
+    white-space:nowrap;
+    margin:0 0 4px;
     letter-spacing:.01em;
   }
   .app-bar p{
     margin:0;
-    font-size:12px;
+    font-size:clamp(10px, 2.8vw, 13px);
+    line-height:1.45;
     color:#DCEAE1;
     letter-spacing:.02em;
+    white-space:nowrap;
   }
 
   /* ---------- Segmented control ---------- */
   .segmented{
-    position:relative;
-    display:flex;
-    background: var(--md-surface-container-high);
-    border-radius:999px;
-    padding:5px;
-    margin-bottom:18px;
+    position:relative; display:flex; background:var(--md-surface-container-high);
+    border:1px solid var(--md-outline-variant); border-radius:var(--shape-full);
+    padding:5px; margin-bottom:20px; box-shadow:var(--elevation-1);
   }
   .segmented-indicator{
     position:absolute;
     top:5px; left:5px;
     width:calc(50% - 5px);
     height:calc(100% - 10px);
-    background: var(--md-primary);
-    border-radius:999px;
-    transition: transform .38s var(--spring);
-    z-index:0;
-    box-shadow:0 4px 10px rgba(62,105,87,.35);
+    background:var(--md-primary); border-radius:var(--shape-full);
+    transition:transform var(--duration-medium) var(--easing-expressive), width var(--duration-medium) var(--easing-emphasized), background-color var(--duration-short) var(--easing-standard);
+    z-index:0; box-shadow:var(--elevation-1);
   }
   .segmented-btn{
     flex:1;
@@ -141,9 +150,13 @@
     color: var(--md-on-surface-variant);
     border-radius:999px;
     cursor:pointer;
-    transition: color .3s;
+    transition:color var(--duration-short) var(--easing-standard), transform var(--duration-short) var(--easing-expressive);
   }
   .segmented-btn.active{ color:var(--md-on-primary); }
+  .segmented-btn:hover{ background:var(--state-primary-hover); }
+  .segmented-btn.active:hover{ background:var(--state-on-primary); }
+  .segmented-btn:focus-visible{ outline:3px solid var(--md-tertiary); outline-offset:3px; }
+  .segmented-btn:active{ transform:scale(.97); }
   .segmented-btn .material-symbols-outlined{ font-size:19px; }
 
   /* ---------- Card / surface ---------- */
@@ -151,7 +164,7 @@
     background: var(--md-surface-container-low);
     border-radius: var(--shape-xl);
     padding: 26px 20px 22px;
-    box-shadow: 0 2px 8px rgba(60,50,30,.08), 0 12px 28px rgba(60,50,30,.10);
+    box-shadow:var(--elevation-2);
     border:1px solid var(--md-outline-variant);
   }
   .doc-head{ text-align:center; margin-bottom:6px; }
@@ -201,22 +214,28 @@
     font-weight:700;
     font-size:13.5px;
     cursor:pointer;
-    transition: all .25s var(--spring);
+    box-shadow:var(--elevation-1);
+    transition:background-color var(--duration-medium) var(--easing-emphasized), color var(--duration-short) var(--easing-standard), border-color var(--duration-short), transform var(--duration-medium) var(--easing-expressive), box-shadow var(--duration-medium) var(--easing-emphasized);
   }
   .chip .chip-check{
     font-size:16px;
     width:0;
     opacity:0;
     overflow:hidden;
-    transition: width .25s var(--spring), opacity .2s;
+    transition:width var(--duration-medium) var(--easing-expressive), opacity var(--duration-short) var(--easing-standard);
   }
   .chip .chip-emoji{ font-size:15px; }
   .chip.selected{
     background: var(--md-primary-container);
     color: var(--md-on-primary-container);
     border-color: transparent;
-    transform: scale(1.04);
+    transform: scale(1.045);
+    box-shadow:var(--elevation-2);
   }
+  .chip:hover{ background:var(--state-primary-hover); transform:translateY(-1px); }
+  .chip.selected:hover{ background:var(--md-primary-container); }
+  .chip:focus-visible, .icon-btn:focus-visible, .add-btn:focus-visible, .btn:focus-visible{ outline:3px solid var(--md-tertiary); outline-offset:3px; }
+  .chip:active{ transform:scale(.96); }
   .chip.selected .chip-check{ width:16px; opacity:1; }
 
   /* ---------- フィールド ---------- */
@@ -246,16 +265,15 @@
     color:var(--md-on-surface);
     background: var(--md-surface-container);
     border:1.5px solid var(--md-outline-variant);
-    border-radius: var(--shape-m);
-    padding:11px 13px;
+    border-radius:var(--shape-s);
+    padding:13px;
     -webkit-appearance:none;
-    transition: border-color .2s, box-shadow .2s;
+    transition:border-color var(--duration-short), box-shadow var(--duration-short), background-color var(--duration-short);
   }
-  input[type=text]:focus, textarea:focus{
-    outline:none;
-    border-color: var(--md-primary);
-    box-shadow: 0 0 0 3px rgba(62,105,87,.15);
-  }
+  .field.is-filled input[type=text], .field.is-filled textarea{ border-color:var(--md-outline); background:var(--md-surface-container-low); }
+  .field.is-error input[type=text], .field.is-error textarea{ border-color:var(--md-tertiary); box-shadow:0 0 0 1px var(--md-tertiary); }
+  input[type=text]:focus, textarea:focus{ outline:none; border-color:var(--md-primary); box-shadow:0 0 0 3px var(--state-primary-focus); }
+  input[type=text]:focus-visible, textarea:focus-visible{ box-shadow:0 0 0 4px var(--state-primary-focus); }
   textarea{ resize:vertical; min-height:54px; line-height:1.55; }
 
   .row2{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
@@ -289,7 +307,14 @@
     border-radius: var(--shape-l);
     padding:12px 12px 10px;
     position:relative;
+    box-shadow:var(--elevation-1);
+    transition:transform var(--duration-medium) var(--easing-expressive), opacity var(--duration-medium) var(--easing-standard), box-shadow var(--duration-medium) var(--easing-emphasized), border-color var(--duration-short);
   }
+  .prog-row:hover{ box-shadow:var(--elevation-2); border-color:var(--md-outline); }
+  .prog-row.row-enter{ animation:rowEnter var(--duration-long) var(--easing-expressive) both; }
+  .prog-row.row-exit{ animation:rowExit var(--duration-medium) var(--easing-standard) both; pointer-events:none; }
+  @keyframes rowEnter{ from{opacity:0; transform:translateY(-12px) scale(.96)} to{opacity:1; transform:none} }
+  @keyframes rowExit{ to{opacity:0; transform:translateX(20px) scale(.96); max-height:0; margin:0; padding-top:0; padding-bottom:0; border-width:0} }
   .prog-row .prog-top{
     display:grid;
     grid-template-columns: 74px 1fr 34px;
@@ -322,7 +347,9 @@
     cursor:pointer;
     position:relative;
     overflow:hidden;
+    transition:transform var(--duration-short) var(--easing-expressive), box-shadow var(--duration-medium) var(--easing-emphasized), background-color var(--duration-short);
   }
+  .icon-btn:hover{ background:var(--md-tertiary); color:var(--md-on-primary); box-shadow:var(--elevation-1); transform:scale(1.08); }
   .add-btn{
     width:100%;
     padding:12px;
@@ -336,7 +363,10 @@
     cursor:pointer;
     display:flex; align-items:center; justify-content:center; gap:6px;
     position:relative; overflow:hidden;
+    transition:transform var(--duration-short) var(--easing-expressive), box-shadow var(--duration-medium) var(--easing-emphasized), background-color var(--duration-short), color var(--duration-short);
   }
+  .add-btn:hover{ background:var(--md-secondary); color:var(--md-on-primary); box-shadow:var(--elevation-2); transform:translateY(-2px) scale(1.01); }
+  .add-btn:active{ transform:scale(.98); }
   .add-btn .material-symbols-outlined{ font-size:19px; }
 
   .approval{
@@ -369,12 +399,8 @@
   .approval-box input{ border:none; background:transparent; text-align:center; font-size:13.5px; padding:0; }
 
   /* ---------- 操作バー ---------- */
-  .actions{
-    display:flex;
-    gap:10px;
-    margin-top:20px;
-    align-items:stretch;
-  }
+  .actions{ display:flex; gap:10px; margin-top:20px; align-items:stretch; }
+  .actions::before{ content:""; display:none; }
   .btn{
     position:relative;
     overflow:hidden;
@@ -384,9 +410,10 @@
     font-weight:700;
     letter-spacing:.02em;
     display:flex; align-items:center; justify-content:center; gap:8px;
-    transition: transform .15s var(--spring), box-shadow .2s;
+    transition:transform var(--duration-short) var(--easing-expressive), box-shadow var(--duration-medium) var(--easing-emphasized), background-color var(--duration-short);
   }
-  .btn:active{ transform: scale(.96); }
+  .btn:hover{ box-shadow:var(--elevation-2); transform:translateY(-2px); }
+  .btn:active{ transform:scale(.96); }
   .btn-outline{
     flex:0 0 auto;
     padding:14px 18px;
@@ -403,7 +430,7 @@
     background: linear-gradient(135deg, var(--md-tertiary) 0%, #C9603A 100%);
     color:#fff;
     font-size:15.5px;
-    box-shadow: 0 6px 18px rgba(176,81,46,.4);
+    box-shadow:var(--elevation-2);
   }
   .btn-fab .material-symbols-outlined{ font-size:21px; }
 
@@ -427,7 +454,7 @@
     border-radius:50%;
     background: rgba(0,0,0,.16);
     transform:scale(0);
-    animation: rippleAnim .55s ease-out;
+    animation:rippleAnim var(--duration-long) var(--easing-standard);
     pointer-events:none;
   }
   .btn-fab .ripple, .icon-btn .ripple{ background: rgba(255,255,255,.4); }
@@ -448,7 +475,7 @@
     box-shadow:0 10px 30px rgba(0,0,0,.35);
     opacity:0;
     pointer-events:none;
-    transition: opacity .3s, transform .3s var(--spring);
+    transition:opacity var(--duration-medium) var(--easing-standard), transform var(--duration-medium) var(--easing-expressive);
     z-index:999;
   }
   .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
@@ -554,8 +581,28 @@
   .cap-approval-box .cc{ font-size: calc(10.5px * var(--cs)); color:#9C8E63; margin-bottom: calc(3px * var(--cs)); }
   .cap-date{ font-size: calc(11.5px * var(--cs)); color:#9C8E63; }
 
+  @media (max-width:600px){
+    body{ padding-bottom:132px; }
+    .actions{ position:sticky; bottom:calc(10px + env(safe-area-inset-bottom)); z-index:20; margin:16px -4px 0; padding:10px; border:1px solid var(--md-outline-variant); border-radius:var(--shape-xl); background:color-mix(in srgb, var(--md-surface-container-low) 92%, transparent); box-shadow:var(--elevation-3); backdrop-filter:blur(14px); }
+    .hint{ margin-bottom:12px; }
+  }
   @media (max-width:360px){
-    .prog-row .prog-top{ grid-template-columns: 62px 1fr 30px; }
+    .app{ padding:0 10px; }
+    .app-bar{ margin-left:-10px; margin-right:-10px; padding-left:16px; padding-right:16px; }
+    .app-bar-row{ gap:10px; }
+    .app-bar-badge{ width:42px; height:42px; font-size:21px; }
+    .app-bar h1{ font-size:20px; }
+    .app-bar p{ font-size:9.5px; letter-spacing:0; }
+    .row2{ grid-template-columns:1fr; gap:0; }
+    .chip-group{ flex-direction:column; align-items:stretch; gap:8px; }
+    .chip{ justify-content:center; padding:11px 16px; }
+    .prog-row .prog-top{ grid-template-columns:62px 1fr 34px; }
+    .actions{ flex-direction:column-reverse; }
+    .btn-outline, .btn-fab{ flex:1 1 auto; width:100%; min-height:48px; }
+  }
+  @media (prefers-reduced-motion:reduce){
+    *, *::before, *::after{ animation-duration:1ms !important; animation-iteration-count:1 !important; transition-duration:1ms !important; scroll-behavior:auto !important; }
+    .ripple{ display:none; }
   }
 </style>
 </head>
@@ -572,18 +619,18 @@
     </div>
   </div>
 
-  <div class="segmented">
-    <div class="segmented-indicator" id="seg-indicator"></div>
-    <button class="segmented-btn active" data-tab="keikaku" onclick="switchTab('keikaku')">
+  <div class="segmented" role="tablist" aria-label="書類の種類">
+    <div class="segmented-indicator" id="seg-indicator" aria-hidden="true"></div>
+    <button type="button" class="segmented-btn active" id="tab-keikaku" data-tab="keikaku" role="tab" aria-selected="true" aria-controls="pane-keikaku" tabindex="0" onclick="switchTab('keikaku')">
       <span class="material-symbols-outlined">edit_note</span>実施計画書
     </button>
-    <button class="segmented-btn" data-tab="houkoku" onclick="switchTab('houkoku')">
+    <button type="button" class="segmented-btn" id="tab-houkoku" data-tab="houkoku" role="tab" aria-selected="false" aria-controls="pane-houkoku" tabindex="-1" onclick="switchTab('houkoku')">
       <span class="material-symbols-outlined">fact_check</span>実施報告書
     </button>
   </div>
 
   <!-- ============ 実施計画書 ============ -->
-  <div id="pane-keikaku" class="pane">
+  <div id="pane-keikaku" class="pane" role="tabpanel" aria-labelledby="tab-keikaku">
     <div class="doc-card">
       <div class="doc-head">
         <div class="doc-title">班 集 会 実 施 計 画 書</div>
@@ -652,7 +699,7 @@
   </div>
 
   <!-- ============ 実施報告書 ============ -->
-  <div id="pane-houkoku" class="pane" style="display:none;">
+  <div id="pane-houkoku" class="pane" role="tabpanel" aria-labelledby="tab-houkoku" hidden>
     <div class="doc-card">
       <div class="doc-head">
         <div class="doc-title">班 集 会 実 施 報 告 書</div>
@@ -747,14 +794,29 @@ document.addEventListener('click', function(e){
 
 /* ---------- タブ切り替え ---------- */
 function switchTab(name){
-  document.getElementById('pane-keikaku').style.display = (name==='keikaku') ? 'block':'none';
-  document.getElementById('pane-houkoku').style.display = (name==='houkoku') ? 'block':'none';
-  document.querySelectorAll('.segmented-btn').forEach(t=>{
-    t.classList.toggle('active', t.dataset.tab===name);
+  document.querySelectorAll('.pane').forEach(panel=>{
+    const active = panel.id === 'pane-'+name;
+    panel.hidden = !active;
   });
-  document.getElementById('seg-indicator').style.transform =
-    (name==='keikaku') ? 'translateX(0%)' : 'translateX(100%)';
+  document.querySelectorAll('.segmented-btn').forEach(tab=>{
+    const active = tab.dataset.tab === name;
+    tab.classList.toggle('active', active);
+    tab.setAttribute('aria-selected', String(active));
+    tab.tabIndex = active ? 0 : -1;
+  });
+  const indicator = document.getElementById('seg-indicator');
+  indicator.style.transform = name==='keikaku' ? 'translateX(0%)' : 'translateX(100%)';
 }
+
+document.querySelector('.segmented').addEventListener('keydown', function(event){
+  if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
+  event.preventDefault();
+  const tabs = [...this.querySelectorAll('[role=tab]')];
+  const current = tabs.findIndex(tab=>tab.getAttribute('aria-selected') === 'true');
+  const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (current + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+  tabs[next].focus();
+  switchTab(tabs[next].dataset.tab);
+});
 
 /* ---------- 班チップ選択 ---------- */
 const teamState = { k:null, h:null };
@@ -772,7 +834,7 @@ function progRowHTML(n){
     <div class="prog-top">
       <input type="text" placeholder="時間">
       <input type="text" placeholder="担当">
-      <button class="icon-btn ripple-surface" onclick="delRow(this)"><span class="material-symbols-outlined" style="font-size:18px;">close</span></button>
+      <button type="button" class="icon-btn ripple-surface" aria-label="このプログラム項目を削除" onclick="delRow(this)"><span class="material-symbols-outlined" style="font-size:18px;" aria-hidden="true">close</span></button>
     </div>
     <textarea placeholder="活動内容" style="min-height:44px;"></textarea>
   </div>`;
@@ -781,13 +843,19 @@ function addRow(listId){
   const list = document.getElementById(listId);
   const n = list.children.length + 1;
   list.insertAdjacentHTML('beforeend', progRowHTML(n));
+  const row = list.lastElementChild;
+  row.classList.add('row-enter');
+  row.addEventListener('animationend', ()=>row.classList.remove('row-enter'), {once:true});
   renumber(listId);
 }
 function delRow(btn){
   const row = btn.closest('.prog-row');
   const list = row.parentElement;
-  row.remove();
-  renumber(list.id);
+  row.classList.add('row-exit');
+  row.addEventListener('animationend', ()=>{
+    row.remove();
+    renumber(list.id);
+  }, {once:true});
 }
 function renumber(listId){
   const list = document.getElementById(listId);
@@ -803,12 +871,24 @@ function renumber(listId){
 function resetPane(name){
   if(!confirm('入力内容をすべてクリアしますか？')) return;
   const pane = document.getElementById('pane-'+name);
-  pane.querySelectorAll('input[type=text], textarea').forEach(el=> el.value='');
+  pane.querySelectorAll('input[type=text], textarea').forEach(el=>{
+    el.value = '';
+    const field = el.closest('.field');
+    if(field) field.classList.remove('is-filled', 'is-error');
+  });
   const prefix = (name==='keikaku') ? 'k' : 'h';
   teamState[prefix] = null;
   document.querySelectorAll('#'+prefix+'-team-group .chip').forEach(c=> c.classList.remove('selected'));
   setDefaultDate(name);
 }
+
+/* ---------- Outlined field states ---------- */
+document.querySelectorAll('.field input[type=text], .field textarea').forEach(field=>{
+  const syncFieldState = ()=> field.closest('.field').classList.toggle('is-filled', Boolean(field.value.trim()));
+  field.addEventListener('input', syncFieldState);
+  field.addEventListener('blur', syncFieldState);
+  syncFieldState();
+});
 
 /* ---------- 記入日の初期値 ---------- */
 function setDefaultDate(name){
