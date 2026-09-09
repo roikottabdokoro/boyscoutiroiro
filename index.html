@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>班集会 記録帳｜第56団ボーイスカウト隊</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,500,0,0&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  :root{
+    /* ---- Material 3 Expressive カラーロール（スカウトテーマ） ---- */
+    --md-primary:#3E6957;
+    --md-on-primary:#FFFFFF;
+    --md-primary-container:#C3EEDA;
+    --md-on-primary-container:#00210F;
+
+    --md-secondary:#8C6D2E;
+    --md-secondary-container:#FFDFA0;
+    --md-on-secondary-container:#2B1B00;
+
+    --md-tertiary:#B0512E;
+    --md-tertiary-container:#FFDBCC;
+    --md-on-tertiary-container:#3A0900;
+
+    --md-surface:#FFF8F0;
+    --md-surface-dim:#E4DECE;
+    --md-surface-container-low:#FFF4E6;
+    --md-surface-container:#FAF0DE;
+    --md-surface-container-high:#F2E7D3;
+    --md-outline:#8B8471;
+    --md-outline-variant:#DED6C0;
+    --md-on-surface:#1D1B14;
+    --md-on-surface-variant:#4C4739;
+
+    --shape-xl:28px;
+    --shape-l:20px;
+    --shape-m:14px;
+    --shape-s:10px;
+    --spring: cubic-bezier(.34,1.56,.64,1);
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 10% -5%, #DDEFE3 0%, transparent 45%),
+      radial-gradient(circle at 100% 0%, #FFE6C9 0%, transparent 40%),
+      var(--md-surface-dim);
+    font-family:'Noto Sans JP', sans-serif;
+    color:var(--md-on-surface);
+    min-height:100vh;
+    padding: 0 0 90px;
+  }
+  .material-symbols-outlined{
+    font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 24;
+    vertical-align:middle;
+    line-height:1;
+  }
+
+  .app{ max-width:640px; margin:0 auto; padding:0 14px; }
+
+  /* ---------- Top app bar ---------- */
+  .app-bar{
+    position:relative;
+    overflow:hidden;
+    background: linear-gradient(135deg, var(--md-primary) 0%, #345B4A 100%);
+    color:var(--md-on-primary);
+    border-radius:0 0 32px 32px;
+    padding: 28px 20px 26px;
+    margin-bottom:18px;
+    box-shadow:0 8px 24px rgba(30,50,40,.25);
+  }
+  .app-bar::after{
+    content:"";
+    position:absolute;
+    width:200px; height:200px;
+    background: var(--md-tertiary-container);
+    opacity:.18;
+    border-radius:44% 56% 60% 40% / 50% 45% 55% 50%;
+    top:-90px; right:-60px;
+  }
+  .app-bar-row{ display:flex; align-items:center; gap:14px; position:relative; z-index:1; }
+  .app-bar-badge{
+    width:50px; height:50px;
+    flex:0 0 auto;
+    display:flex; align-items:center; justify-content:center;
+    background: var(--md-tertiary-container);
+    color: var(--md-on-tertiary-container);
+    border-radius:16px;
+    font-size:24px;
+  }
+  .app-bar h1{
+    font-family:'M PLUS Rounded 1c', sans-serif;
+    font-weight:800;
+    font-size:21px;
+    margin:0 0 3px;
+    letter-spacing:.01em;
+  }
+  .app-bar p{
+    margin:0;
+    font-size:12px;
+    color:#DCEAE1;
+    letter-spacing:.02em;
+  }
+
+  /* ---------- Segmented control ---------- */
+  .segmented{
+    position:relative;
+    display:flex;
+    background: var(--md-surface-container-high);
+    border-radius:999px;
+    padding:5px;
+    margin-bottom:18px;
+  }
+  .segmented-indicator{
+    position:absolute;
+    top:5px; left:5px;
+    width:calc(50% - 5px);
+    height:calc(100% - 10px);
+    background: var(--md-primary);
+    border-radius:999px;
+    transition: transform .38s var(--spring);
+    z-index:0;
+    box-shadow:0 4px 10px rgba(62,105,87,.35);
+  }
+  .segmented-btn{
+    flex:1;
+    position:relative;
+    z-index:1;
+    border:none;
+    background:transparent;
+    padding:12px 8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    font-family:'M PLUS Rounded 1c', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    color: var(--md-on-surface-variant);
+    border-radius:999px;
+    cursor:pointer;
+    transition: color .3s;
+  }
+  .segmented-btn.active{ color:var(--md-on-primary); }
+  .segmented-btn .material-symbols-outlined{ font-size:19px; }
+
+  /* ---------- Card / surface ---------- */
+  .doc-card{
+    background: var(--md-surface-container-low);
+    border-radius: var(--shape-xl);
+    padding: 26px 20px 22px;
+    box-shadow: 0 2px 8px rgba(60,50,30,.08), 0 12px 28px rgba(60,50,30,.10);
+    border:1px solid var(--md-outline-variant);
+  }
+  .doc-head{ text-align:center; margin-bottom:6px; }
+  .doc-title{
+    font-family:'M PLUS Rounded 1c', sans-serif;
+    font-weight:800;
+    font-size:19px;
+    color:var(--md-primary);
+    letter-spacing:.06em;
+  }
+  .doc-sub{
+    font-size:10.5px;
+    color:var(--md-outline);
+    letter-spacing:.08em;
+    margin-top:2px;
+  }
+
+  .troop-block{
+    text-align:center;
+    margin: 16px 0 20px;
+  }
+  .troop-fixed{
+    display:inline-block;
+    font-family:'M PLUS Rounded 1c', sans-serif;
+    font-weight:700;
+    font-size:14.5px;
+    color:var(--md-on-surface);
+    background: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
+    padding:6px 16px;
+    border-radius:999px;
+    margin-bottom:12px;
+  }
+  .chip-group{ display:flex; gap:10px; justify-content:center; }
+  .chip{
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    border:1.5px solid var(--md-outline-variant);
+    background: var(--md-surface-container);
+    color:var(--md-on-surface-variant);
+    padding:9px 18px 9px 14px;
+    border-radius:999px;
+    font-family:'Noto Sans JP', sans-serif;
+    font-weight:700;
+    font-size:13.5px;
+    cursor:pointer;
+    transition: all .25s var(--spring);
+  }
+  .chip .chip-check{
+    font-size:16px;
+    width:0;
+    opacity:0;
+    overflow:hidden;
+    transition: width .25s var(--spring), opacity .2s;
+  }
+  .chip .chip-emoji{ font-size:15px; }
+  .chip.selected{
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    border-color: transparent;
+    transform: scale(1.04);
+  }
+  .chip.selected .chip-check{ width:16px; opacity:1; }
+
+  /* ---------- フィールド ---------- */
+  .field{ margin-bottom:15px; }
+  .field label{
+    display:flex;
+    align-items:baseline;
+    gap:6px;
+    font-size:11.5px;
+    font-weight:700;
+    color:var(--md-primary);
+    letter-spacing:.03em;
+    margin-bottom:6px;
+  }
+  .field label .opt{
+    font-weight:500;
+    color:var(--md-outline);
+    font-size:10px;
+    background:var(--md-surface-container-high);
+    padding:1px 7px;
+    border-radius:999px;
+  }
+  input[type=text], textarea{
+    width:100%;
+    font-family:'Noto Sans JP', sans-serif;
+    font-size:14.5px;
+    color:var(--md-on-surface);
+    background: var(--md-surface-container);
+    border:1.5px solid var(--md-outline-variant);
+    border-radius: var(--shape-m);
+    padding:11px 13px;
+    -webkit-appearance:none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  input[type=text]:focus, textarea:focus{
+    outline:none;
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 3px rgba(62,105,87,.15);
+  }
+  textarea{ resize:vertical; min-height:54px; line-height:1.55; }
+
+  .row2{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+
+  .divider{
+    border:none;
+    border-top:1.5px dashed var(--md-outline-variant);
+    margin: 22px 0;
+  }
+
+  .section-title{
+    font-family:'M PLUS Rounded 1c', sans-serif;
+    font-size:15px;
+    font-weight:700;
+    color:var(--md-on-surface);
+    margin: 0 0 12px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section-title .material-symbols-outlined{
+    font-size:19px;
+    color:var(--md-tertiary);
+  }
+
+  /* ---------- プログラム行 ---------- */
+  .prog-list{ display:flex; flex-direction:column; gap:11px; margin-bottom:12px; }
+  .prog-row{
+    background:var(--md-surface-container);
+    border:1.5px solid var(--md-outline-variant);
+    border-radius: var(--shape-l);
+    padding:12px 12px 10px;
+    position:relative;
+  }
+  .prog-row .prog-top{
+    display:grid;
+    grid-template-columns: 74px 1fr 34px;
+    gap:8px;
+    margin-bottom:8px;
+    align-items:center;
+  }
+  .prog-row .prog-top input[type=text]:first-child{ text-align:center; padding:9px 6px; }
+  .prog-num{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:22px; height:22px;
+    font-size:11px;
+    color:var(--md-on-primary);
+    background:var(--md-primary);
+    font-weight:700;
+    position:absolute;
+    top:-9px; left:10px;
+    border-radius:50%;
+  }
+  .icon-btn{
+    width:34px;height:34px;
+    border-radius:50%;
+    border:none;
+    background: var(--md-tertiary-container);
+    color:var(--md-tertiary);
+    font-size:18px;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+  }
+  .add-btn{
+    width:100%;
+    padding:12px;
+    background: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
+    border:none;
+    border-radius: var(--shape-l);
+    font-family:'M PLUS Rounded 1c', sans-serif;
+    font-weight:700;
+    font-size:13.5px;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    position:relative; overflow:hidden;
+  }
+  .add-btn .material-symbols-outlined{ font-size:19px; }
+
+  .approval{
+    margin-top:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .stamp-date{ font-size:11.5px; color:var(--md-outline); display:flex; align-items:center; gap:6px; }
+  .stamp-date input{
+    width:118px;
+    border:none;
+    border-bottom:1.5px solid var(--md-outline-variant);
+    background:transparent;
+    border-radius:0;
+    padding:2px 2px;
+    font-size:12px;
+  }
+  .approval-box{
+    border:1.5px solid var(--md-outline-variant);
+    background:var(--md-surface-container);
+    border-radius: var(--shape-m);
+    padding:8px 14px;
+    min-width:140px;
+    text-align:center;
+  }
+  .approval-box .cap{ font-size:10.5px; color:var(--md-outline); margin-bottom:3px; }
+  .approval-box input{ border:none; background:transparent; text-align:center; font-size:13.5px; padding:0; }
+
+  /* ---------- 操作バー ---------- */
+  .actions{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+    align-items:stretch;
+  }
+  .btn{
+    position:relative;
+    overflow:hidden;
+    border:none;
+    cursor:pointer;
+    font-family:'M PLUS Rounded 1c', sans-serif;
+    font-weight:700;
+    letter-spacing:.02em;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    transition: transform .15s var(--spring), box-shadow .2s;
+  }
+  .btn:active{ transform: scale(.96); }
+  .btn-outline{
+    flex:0 0 auto;
+    padding:14px 18px;
+    border-radius:999px;
+    background:transparent;
+    border:1.5px solid var(--md-outline);
+    color:var(--md-on-surface-variant);
+    font-size:14px;
+  }
+  .btn-fab{
+    flex:1;
+    padding:16px 20px;
+    border-radius:28px;
+    background: linear-gradient(135deg, var(--md-tertiary) 0%, #C9603A 100%);
+    color:#fff;
+    font-size:15.5px;
+    box-shadow: 0 6px 18px rgba(176,81,46,.4);
+  }
+  .btn-fab .material-symbols-outlined{ font-size:21px; }
+
+  .hint{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    justify-content:center;
+    text-align:center;
+    font-size:11px;
+    color:var(--md-on-surface-variant);
+    margin-top:12px;
+    line-height:1.5;
+    opacity:.85;
+  }
+  .hint .material-symbols-outlined{ font-size:15px; }
+
+  /* ---------- リップル ---------- */
+  .ripple{
+    position:absolute;
+    border-radius:50%;
+    background: rgba(0,0,0,.16);
+    transform:scale(0);
+    animation: rippleAnim .55s ease-out;
+    pointer-events:none;
+  }
+  .btn-fab .ripple, .icon-btn .ripple{ background: rgba(255,255,255,.4); }
+  @keyframes rippleAnim{ to{ transform:scale(2.4); opacity:0; } }
+
+  /* ---------- Snackbar ---------- */
+  .toast{
+    position:fixed;
+    left:50%; bottom:24px;
+    transform:translateX(-50%) translateY(24px);
+    background: #33302A;
+    color:#F5F0E4;
+    padding:13px 22px;
+    border-radius:16px;
+    font-size:13px;
+    max-width:90%;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
+    opacity:0;
+    pointer-events:none;
+    transition: opacity .3s, transform .3s var(--spring);
+    z-index:999;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  /* ---------- 保存用：A4比率ページ（画面には出さない） ---------- */
+  .capture-page{
+    position:fixed;
+    top:0; left:-99999px;
+    width:794px;
+    height:1123px;
+    background:#FBF6EA;
+    padding:56px 60px 50px;
+    overflow:hidden;
+    --cs:1;
+  }
+  .cap-body{ height:100%; }
+  .cap-title{
+    font-family:'M PLUS Rounded 1c', sans-serif;
+    font-weight:800;
+    text-align:center;
+    color:#33604B;
+    letter-spacing:.1em;
+    font-size: calc(27px * var(--cs));
+    margin-bottom: calc(3px * var(--cs));
+  }
+  .cap-sub{
+    text-align:center;
+    color:#9C8E63;
+    letter-spacing:.08em;
+    font-size: calc(12px * var(--cs));
+    margin-bottom: calc(16px * var(--cs));
+  }
+  .cap-troop{
+    text-align:center;
+    font-weight:700;
+    color:#33302A;
+    font-size: calc(15px * var(--cs));
+    margin-bottom: calc(18px * var(--cs));
+  }
+  .cap-troop .cap-team{
+    display:inline-block;
+    background:#FFDFA0;
+    color:#2B1B00;
+    padding: calc(3px * var(--cs)) calc(12px * var(--cs));
+    border-radius:999px;
+    margin-left: calc(8px * var(--cs));
+  }
+  .cap-field{ margin-bottom: calc(14px * var(--cs)); }
+  .cap-field .cf-label{
+    font-size: calc(11.5px * var(--cs));
+    font-weight:700;
+    color:#3E6957;
+    margin-bottom: calc(4px * var(--cs));
+  }
+  .cap-field .cf-value{
+    font-size: calc(14.5px * var(--cs));
+    color:#1D1B14;
+    background:#fff;
+    border:1px solid #E4D9BC;
+    border-radius: calc(10px * var(--cs));
+    padding: calc(9px * var(--cs)) calc(12px * var(--cs));
+    white-space:pre-wrap;
+    line-height:1.6;
+  }
+  .cap-row2{ display:flex; gap: calc(10px * var(--cs)); }
+  .cap-row2 > div{ flex:1; }
+  .cap-divider{ border:none; border-top:1.5px dashed #E4D9BC; margin: calc(18px * var(--cs)) 0; }
+  .cap-section-title{
+    font-family:'M PLUS Rounded 1c', sans-serif;
+    font-weight:700;
+    color:#1D1B14;
+    font-size: calc(16px * var(--cs));
+    margin: 0 0 calc(12px * var(--cs));
+  }
+  .cap-prog-row{
+    background:#fff;
+    border:1px solid #E4D9BC;
+    border-radius: calc(12px * var(--cs));
+    padding: calc(10px * var(--cs)) calc(13px * var(--cs));
+    margin-bottom: calc(10px * var(--cs));
+  }
+  .cap-prog-head{
+    display:flex; gap: calc(10px * var(--cs));
+    color:#9C8E63; font-weight:700;
+    font-size: calc(12px * var(--cs));
+    margin-bottom: calc(5px * var(--cs));
+  }
+  .cap-prog-content{
+    font-size: calc(13.5px * var(--cs));
+    white-space:pre-wrap; line-height:1.6;
+  }
+  .cap-approval{
+    margin-top: calc(18px * var(--cs));
+    display:flex; justify-content:space-between; align-items:center;
+  }
+  .cap-approval-box{
+    border:1px solid #E4D9BC;
+    background:#fff;
+    border-radius: calc(10px * var(--cs));
+    padding: calc(8px * var(--cs)) calc(20px * var(--cs));
+    font-size: calc(13.5px * var(--cs));
+  }
+  .cap-approval-box .cc{ font-size: calc(10.5px * var(--cs)); color:#9C8E63; margin-bottom: calc(3px * var(--cs)); }
+  .cap-date{ font-size: calc(11.5px * var(--cs)); color:#9C8E63; }
+
+  @media (max-width:360px){
+    .prog-row .prog-top{ grid-template-columns: 62px 1fr 30px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="app-bar">
+    <div class="app-bar-row">
+      <div class="app-bar-badge"><span class="material-symbols-outlined">forest</span></div>
+      <div>
+        <h1>班集会 記録帳</h1>
+        <p>第56団ボーイスカウト隊　実施計画書・報告書</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="segmented">
+    <div class="segmented-indicator" id="seg-indicator"></div>
+    <button class="segmented-btn active" data-tab="keikaku" onclick="switchTab('keikaku')">
+      <span class="material-symbols-outlined">edit_note</span>実施計画書
+    </button>
+    <button class="segmented-btn" data-tab="houkoku" onclick="switchTab('houkoku')">
+      <span class="material-symbols-outlined">fact_check</span>実施報告書
+    </button>
+  </div>
+
+  <!-- ============ 実施計画書 ============ -->
+  <div id="pane-keikaku" class="pane">
+    <div class="doc-card">
+      <div class="doc-head">
+        <div class="doc-title">班 集 会 実 施 計 画 書</div>
+        <div class="doc-sub">BOY SCOUT PATROL MEETING PLAN</div>
+      </div>
+
+      <div class="troop-block">
+        <div class="troop-fixed">第 56 団 ボーイスカウト隊</div>
+        <div class="chip-group" id="k-team-group">
+          <button type="button" class="chip ripple-surface" onclick="selectTeam('k','キャット班',this)">
+            <span class="chip-check material-symbols-outlined">check</span>
+            <span class="chip-emoji">🐱</span>キャット班
+          </button>
+          <button type="button" class="chip ripple-surface" onclick="selectTeam('k','バード班',this)">
+            <span class="chip-check material-symbols-outlined">check</span>
+            <span class="chip-emoji">🦅</span>バード班
+          </button>
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field"><label>集会名</label><input type="text" id="k-name" placeholder="例）野外炊事班集会"></div>
+        <div class="field"><label>責任者</label><input type="text" id="k-resp" placeholder="氏名"></div>
+      </div>
+      <div class="field"><label>書記</label><input type="text" id="k-clerk" placeholder="氏名"></div>
+
+      <div class="row2">
+        <div class="field"><label>日時</label><input type="text" id="k-date" placeholder="◯月◯日（◯）◯:◯◯〜"></div>
+        <div class="field"><label>集合・実施場所</label><input type="text" id="k-place" placeholder="場所"></div>
+      </div>
+
+      <div class="field"><label>目標</label><textarea id="k-goal" placeholder="この集会で達成したいこと"></textarea></div>
+
+      <hr class="divider">
+
+      <div class="section-title"><span class="material-symbols-outlined">route</span>プログラム</div>
+      <div class="prog-list" id="k-prog"></div>
+      <button class="add-btn ripple-surface" onclick="addRow('k-prog')"><span class="material-symbols-outlined">add</span>項目を追加</button>
+
+      <hr class="divider">
+
+      <div class="field"><label>持ち物・準備するもの<span class="opt">任意</span></label><textarea id="k-belongings" placeholder="各自が用意するもの"></textarea></div>
+      <div class="field"><label>安全上の留意点<span class="opt">任意</span></label><textarea id="k-safety" placeholder="注意すること・雨天時の対応など"></textarea></div>
+      <div class="field"><label>必要資材<span class="opt">任意</span></label><textarea id="k-material" placeholder="道具・材料など"></textarea></div>
+      <div class="field"><label>予算<span class="opt">任意</span></label><input type="text" id="k-budget" placeholder="¥"></div>
+      <div class="field"><label>隊への依頼事項<span class="opt">任意</span></label><textarea id="k-request" placeholder="隊にお願いしたいこと"></textarea></div>
+
+      <div class="approval">
+        <div class="stamp-date"><span class="material-symbols-outlined" style="font-size:16px;">calendar_today</span>記入日 <input type="text" id="k-stampdate"></div>
+        <div class="approval-box">
+          <div class="cap">隊長承認</div>
+          <input type="text" id="k-approval" placeholder="サイン欄">
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-outline ripple-surface" onclick="resetPane('keikaku')">
+        <span class="material-symbols-outlined" style="font-size:18px;">restart_alt</span>クリア
+      </button>
+      <button class="btn btn-fab ripple-surface" onclick="saveAsImage('keikaku')">
+        <span class="material-symbols-outlined">download</span>画像として保存
+      </button>
+    </div>
+    <div class="hint"><span class="material-symbols-outlined">auto_fix_high</span>未入力の項目は保存画像から自動的に省かれます・A4サイズに収まるよう自動調整されます</div>
+  </div>
+
+  <!-- ============ 実施報告書 ============ -->
+  <div id="pane-houkoku" class="pane" style="display:none;">
+    <div class="doc-card">
+      <div class="doc-head">
+        <div class="doc-title">班 集 会 実 施 報 告 書</div>
+        <div class="doc-sub">BOY SCOUT PATROL MEETING REPORT</div>
+      </div>
+
+      <div class="troop-block">
+        <div class="troop-fixed">第 56 団 ボーイスカウト隊</div>
+        <div class="chip-group" id="h-team-group">
+          <button type="button" class="chip ripple-surface" onclick="selectTeam('h','キャット班',this)">
+            <span class="chip-check material-symbols-outlined">check</span>
+            <span class="chip-emoji">🐱</span>キャット班
+          </button>
+          <button type="button" class="chip ripple-surface" onclick="selectTeam('h','バード班',this)">
+            <span class="chip-check material-symbols-outlined">check</span>
+            <span class="chip-emoji">🦅</span>バード班
+          </button>
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="field"><label>集会名</label><input type="text" id="h-name" placeholder="例）野外炊事班集会"></div>
+        <div class="field"><label>責任者</label><input type="text" id="h-resp" placeholder="氏名"></div>
+      </div>
+      <div class="field"><label>書記</label><input type="text" id="h-clerk" placeholder="氏名"></div>
+
+      <div class="row2">
+        <div class="field"><label>日時</label><input type="text" id="h-date" placeholder="◯月◯日（◯）◯:◯◯〜"></div>
+        <div class="field"><label>実施場所</label><input type="text" id="h-place" placeholder="場所"></div>
+      </div>
+
+      <div class="row2">
+        <div class="field"><label>出席者</label><textarea id="h-present" placeholder="氏名を記入"></textarea></div>
+        <div class="field"><label>欠席者</label><textarea id="h-absent" placeholder="氏名を記入"></textarea></div>
+      </div>
+      <div class="field"><label>参加人数<span class="opt">任意</span></label><input type="text" id="h-count" placeholder="◯名"></div>
+
+      <div class="field"><label>目標</label><textarea id="h-goal" placeholder="計画時に立てた目標"></textarea></div>
+
+      <hr class="divider">
+
+      <div class="section-title"><span class="material-symbols-outlined">route</span>実施内容</div>
+      <div class="prog-list" id="h-prog"></div>
+      <button class="add-btn ripple-surface" onclick="addRow('h-prog')"><span class="material-symbols-outlined">add</span>項目を追加</button>
+
+      <hr class="divider">
+
+      <div class="row2">
+        <div class="field"><label>使用資材<span class="opt">任意</span></label><textarea id="h-material" placeholder="実際に使ったもの"></textarea></div>
+        <div class="field"><label>決算<span class="opt">任意</span></label><textarea id="h-budget" placeholder="実際の支出"></textarea></div>
+      </div>
+      <div class="field"><label>評価・反省<span class="opt">任意</span></label><textarea id="h-review" placeholder="良かった点・改善点"></textarea></div>
+      <div class="field"><label>次回への申し送り<span class="opt">任意</span></label><textarea id="h-next" placeholder="次回に引き継ぎたいこと"></textarea></div>
+      <div class="field"><label>隊長所感<span class="opt">任意</span></label><textarea id="h-comment" placeholder="隊長からのコメント"></textarea></div>
+
+      <div class="approval">
+        <div class="stamp-date"><span class="material-symbols-outlined" style="font-size:16px;">calendar_today</span>記入日 <input type="text" id="h-stampdate"></div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-outline ripple-surface" onclick="resetPane('houkoku')">
+        <span class="material-symbols-outlined" style="font-size:18px;">restart_alt</span>クリア
+      </button>
+      <button class="btn btn-fab ripple-surface" onclick="saveAsImage('houkoku')">
+        <span class="material-symbols-outlined">download</span>画像として保存
+      </button>
+    </div>
+    <div class="hint"><span class="material-symbols-outlined">auto_fix_high</span>未入力の項目は保存画像から自動的に省かれます・A4サイズに収まるよう自動調整されます</div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast">画像を保存しました</div>
+
+<script>
+/* ---------- リップル（イベント委譲） ---------- */
+document.addEventListener('click', function(e){
+  const target = e.target.closest('.ripple-surface');
+  if(!target) return;
+  const rect = target.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height) * 1.4;
+  const span = document.createElement('span');
+  span.className = 'ripple';
+  span.style.width = span.style.height = size + 'px';
+  span.style.left = (e.clientX - rect.left - size/2) + 'px';
+  span.style.top = (e.clientY - rect.top - size/2) + 'px';
+  target.style.position = target.style.position || 'relative';
+  target.appendChild(span);
+  span.addEventListener('animationend', ()=> span.remove());
+});
+
+/* ---------- タブ切り替え ---------- */
+function switchTab(name){
+  document.getElementById('pane-keikaku').style.display = (name==='keikaku') ? 'block':'none';
+  document.getElementById('pane-houkoku').style.display = (name==='houkoku') ? 'block':'none';
+  document.querySelectorAll('.segmented-btn').forEach(t=>{
+    t.classList.toggle('active', t.dataset.tab===name);
+  });
+  document.getElementById('seg-indicator').style.transform =
+    (name==='keikaku') ? 'translateX(0%)' : 'translateX(100%)';
+}
+
+/* ---------- 班チップ選択 ---------- */
+const teamState = { k:null, h:null };
+function selectTeam(prefix, team, btn){
+  teamState[prefix] = team;
+  document.querySelectorAll('#'+prefix+'-team-group .chip').forEach(c=> c.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+/* ---------- プログラム行の追加/削除 ---------- */
+function progRowHTML(n){
+  return `
+  <div class="prog-row">
+    <span class="prog-num">${n}</span>
+    <div class="prog-top">
+      <input type="text" placeholder="時間">
+      <input type="text" placeholder="担当">
+      <button class="icon-btn ripple-surface" onclick="delRow(this)"><span class="material-symbols-outlined" style="font-size:18px;">close</span></button>
+    </div>
+    <textarea placeholder="活動内容" style="min-height:44px;"></textarea>
+  </div>`;
+}
+function addRow(listId){
+  const list = document.getElementById(listId);
+  const n = list.children.length + 1;
+  list.insertAdjacentHTML('beforeend', progRowHTML(n));
+  renumber(listId);
+}
+function delRow(btn){
+  const row = btn.closest('.prog-row');
+  const list = row.parentElement;
+  row.remove();
+  renumber(list.id);
+}
+function renumber(listId){
+  const list = document.getElementById(listId);
+  [...list.children].forEach((row,i)=>{
+    row.querySelector('.prog-num').textContent = i+1;
+  });
+}
+['k-prog','h-prog'].forEach(id=>{
+  for(let i=0;i<3;i++) addRow(id);
+});
+
+/* ---------- クリア ---------- */
+function resetPane(name){
+  if(!confirm('入力内容をすべてクリアしますか？')) return;
+  const pane = document.getElementById('pane-'+name);
+  pane.querySelectorAll('input[type=text], textarea').forEach(el=> el.value='');
+  const prefix = (name==='keikaku') ? 'k' : 'h';
+  teamState[prefix] = null;
+  document.querySelectorAll('#'+prefix+'-team-group .chip').forEach(c=> c.classList.remove('selected'));
+  setDefaultDate(name);
+}
+
+/* ---------- 記入日の初期値 ---------- */
+function setDefaultDate(name){
+  const d = new Date();
+  const s = `${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}`;
+  const el = document.getElementById((name==='keikaku'?'k':'h')+'-stampdate');
+  if(el) el.value = s;
+}
+setDefaultDate('keikaku');
+setDefaultDate('houkoku');
+
+/* ---------- トースト ---------- */
+function showToast(msg, duration){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(()=> t.classList.remove('show'), duration || 2400);
+}
+
+/* ---------- 値取得ヘルパー ---------- */
+function val(id){
+  const el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+function esc(s){
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function capField(label, id){
+  const v = val(id);
+  if(!v) return '';
+  return `<div class="cap-field"><div class="cf-label">${label}</div><div class="cf-value">${esc(v)}</div></div>`;
+}
+function collectProgRows(listId){
+  const list = document.getElementById(listId);
+  const rows = [];
+  [...list.children].forEach(row=>{
+    const inputs = row.querySelectorAll('input[type=text]');
+    const time = inputs[0] ? inputs[0].value.trim() : '';
+    const tantou = inputs[1] ? inputs[1].value.trim() : '';
+    const content = row.querySelector('textarea') ? row.querySelector('textarea').value.trim() : '';
+    if(time || tantou || content){
+      rows.push({time, tantou, content});
+    }
+  });
+  return rows;
+}
+function progRowsHTML(rows){
+  if(rows.length===0) return '';
+  return rows.map(r=>{
+    const headBits = [];
+    if(r.time) headBits.push(esc(r.time));
+    if(r.tantou) headBits.push('担当：'+esc(r.tantou));
+    const head = headBits.length ? `<div class="cap-prog-head">${headBits.join('　／　')}</div>` : '';
+    const body = r.content ? `<div class="cap-prog-content">${esc(r.content)}</div>` : '';
+    return `<div class="cap-prog-row">${head}${body}</div>`;
+  }).join('');
+}
+
+/* ---------- 保存用HTMLの組み立て ---------- */
+function teamLineHTML(prefix){
+  const team = teamState[prefix];
+  return `<div class="cap-troop">第 56 団 ボーイスカウト隊${team ? `<span class="cap-team">${esc(team)}</span>` : ''}</div>`;
+}
+
+function buildCaptureKeikaku(){
+  let respRow = '';
+  const resp = val('k-resp'), clerk = val('k-clerk');
+  if(resp || clerk){
+    respRow = `<div class="cap-row2">
+      ${resp ? `<div class="cap-field"><div class="cf-label">責任者</div><div class="cf-value">${esc(resp)}</div></div>` : ''}
+      ${clerk ? `<div class="cap-field"><div class="cf-label">書記</div><div class="cf-value">${esc(clerk)}</div></div>` : ''}
+    </div>`;
+  }
+
+  const dateVal = val('k-date'), placeVal = val('k-place');
+  let dateRow = '';
+  if(dateVal || placeVal){
+    dateRow = `<div class="cap-row2">
+      ${dateVal ? `<div class="cap-field"><div class="cf-label">日時</div><div class="cf-value">${esc(dateVal)}</div></div>` : ''}
+      ${placeVal ? `<div class="cap-field"><div class="cf-label">集合・実施場所</div><div class="cf-value">${esc(placeVal)}</div></div>` : ''}
+    </div>`;
+  }
+
+  const progRows = progRowsHTML(collectProgRows('k-prog'));
+  const progSection = progRows ? `<hr class="cap-divider"><div class="cap-section-title">プログラム</div>${progRows}` : '';
+
+  const tail = [
+    capField('持ち物・準備するもの','k-belongings'),
+    capField('安全上の留意点','k-safety'),
+    capField('必要資材','k-material'),
+    capField('予算','k-budget'),
+    capField('隊への依頼事項','k-request')
+  ].join('');
+  const tailSection = tail ? `<hr class="cap-divider">${tail}` : '';
+
+  const approvalVal = val('k-approval');
+  const stampDate = val('k-stampdate');
+  const approvalHTML = `<div class="cap-approval">
+    <div class="cap-date">${stampDate ? '記入日　'+esc(stampDate) : ''}</div>
+    ${approvalVal ? `<div class="cap-approval-box"><div class="cc">隊長承認</div>${esc(approvalVal)}</div>` : ''}
+  </div>`;
+
+  return `
+    <div class="cap-title">班 集 会 実 施 計 画 書</div>
+    <div class="cap-sub">BOY SCOUT&nbsp;PATROL MEETING PLAN</div>
+    ${teamLineHTML('k')}
+    ${capField('集会名','k-name')}
+    ${respRow}
+    ${dateRow}
+    ${capField('目標','k-goal')}
+    ${progSection}
+    ${tailSection}
+    ${approvalHTML}
+  `;
+}
+
+function buildCaptureHoukoku(){
+  let respRow = '';
+  const resp = val('h-resp'), clerk = val('h-clerk');
+  if(resp || clerk){
+    respRow = `<div class="cap-row2">
+      ${resp ? `<div class="cap-field"><div class="cf-label">責任者</div><div class="cf-value">${esc(resp)}</div></div>` : ''}
+      ${clerk ? `<div class="cap-field"><div class="cf-label">書記</div><div class="cf-value">${esc(clerk)}</div></div>` : ''}
+    </div>`;
+  }
+
+  const dateVal = val('h-date'), placeVal = val('h-place');
+  let dateRow = '';
+  if(dateVal || placeVal){
+    dateRow = `<div class="cap-row2">
+      ${dateVal ? `<div class="cap-field"><div class="cf-label">日時</div><div class="cf-value">${esc(dateVal)}</div></div>` : ''}
+      ${placeVal ? `<div class="cap-field"><div class="cf-label">実施場所</div><div class="cf-value">${esc(placeVal)}</div></div>` : ''}
+    </div>`;
+  }
+
+  const present = val('h-present'), absent = val('h-absent');
+  let attendRow = '';
+  if(present || absent){
+    attendRow = `<div class="cap-row2">
+      ${present ? `<div class="cap-field"><div class="cf-label">出席者</div><div class="cf-value">${esc(present)}</div></div>` : ''}
+      ${absent ? `<div class="cap-field"><div class="cf-label">欠席者</div><div class="cf-value">${esc(absent)}</div></div>` : ''}
+    </div>`;
+  }
+
+  const progRows = progRowsHTML(collectProgRows('h-prog'));
+  const progSection = progRows ? `<hr class="cap-divider"><div class="cap-section-title">実施内容</div>${progRows}` : '';
+
+  const materialRow = (val('h-material') || val('h-budget')) ? `<div class="cap-row2">
+      ${val('h-material') ? `<div class="cap-field"><div class="cf-label">使用資材</div><div class="cf-value">${esc(val('h-material'))}</div></div>` : ''}
+      ${val('h-budget') ? `<div class="cap-field"><div class="cf-label">決算</div><div class="cf-value">${esc(val('h-budget'))}</div></div>` : ''}
+    </div>` : '';
+
+  const tail = [
+    materialRow,
+    capField('評価・反省','h-review'),
+    capField('次回への申し送り','h-next'),
+    capField('隊長所感','h-comment')
+  ].join('');
+  const tailSection = tail ? `<hr class="cap-divider">${tail}` : '';
+
+  const stampDate = val('h-stampdate');
+
+  return `
+    <div class="cap-title">班 集 会 実 施 報 告 書</div>
+    <div class="cap-sub">BOY SCOUT&nbsp;PATROL MEETING REPORT</div>
+    ${teamLineHTML('h')}
+    ${capField('集会名','h-name')}
+    ${respRow}
+    ${dateRow}
+    ${attendRow}
+    ${capField('参加人数','h-count')}
+    ${capField('目標','h-goal')}
+    ${progSection}
+    ${tailSection}
+    ${stampDate ? `<div class="cap-approval"><div class="cap-date">記入日　${esc(stampDate)}</div></div>` : ''}
+  `;
+}
+
+/* ---------- html2canvas フォールバック読み込み ---------- */
+function ensureHtml2Canvas(){
+  return new Promise((resolve, reject)=>{
+    if(typeof html2canvas !== 'undefined'){ resolve(); return; }
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+    s.onload = ()=> resolve();
+    s.onerror = ()=> reject(new Error('load-fail'));
+    document.head.appendChild(s);
+  });
+}
+
+/* ---------- A4に収まるよう自動縮小 ---------- */
+function fitPageContent(pageEl, bodyEl){
+  const availableHeight = pageEl.clientHeight; // padding は box-sizing:border-box 前提で別枠管理
+  let cs = 1.0;
+  const minCs = 0.55;
+  pageEl.style.setProperty('--cs', cs.toFixed(3));
+  let guard = 0;
+  while(bodyEl.scrollHeight > availableHeight && cs > minCs && guard < 40){
+    cs -= 0.02;
+    pageEl.style.setProperty('--cs', cs.toFixed(3));
+    guard++;
+  }
+  return cs;
+}
+
+/* ---------- 画像として保存 ---------- */
+async function saveAsImage(type){
+  showToast('画像を作成しています…', 60000);
+  try{
+    await ensureHtml2Canvas();
+  }catch(e){
+    showToast('通信環境の影響で保存機能を読み込めませんでした。画面のスクリーンショットをご利用ください', 4500);
+    return;
+  }
+
+  const inner = (type==='keikaku') ? buildCaptureKeikaku() : buildCaptureHoukoku();
+
+  const page = document.createElement('div');
+  page.className = 'capture-page';
+  const body = document.createElement('div');
+  body.className = 'cap-body';
+  body.innerHTML = inner;
+  page.appendChild(body);
+  document.body.appendChild(page);
+
+  try{
+    if(document.fonts && document.fonts.ready){
+      await document.fonts.ready;
+    }
+    await new Promise(r=> setTimeout(r, 80));
+
+    // 内容量に応じて文字サイズ・余白を自動縮小し、A4比率(794x1123)に収める
+    const contentBoxHeight = page.clientHeight - 56 - 50; // padding-top/bottom 分を除いた実測可能領域の目安
+    body.style.maxHeight = contentBoxHeight + 'px';
+    fitPageContent({ clientHeight: contentBoxHeight, style: page.style }, body);
+
+    const canvas = await html2canvas(page, {
+      scale: 2,
+      width: 794,
+      height: 1123,
+      backgroundColor: '#FBF6EA',
+      useCORS: true,
+      logging: false
+    });
+
+    const filename = (type==='keikaku' ? '班集会_実施計画書' : '班集会_実施報告書') + '_' + fileStamp() + '.png';
+
+    canvas.toBlob(function(blob){
+      if(!blob){
+        showToast('保存に失敗しました。もう一度お試しください', 3200);
+        return;
+      }
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(()=> URL.revokeObjectURL(url), 4000);
+      showToast('画像を保存しました（iPhoneは新しいタブで開くので長押しで保存してください）', 4200);
+    }, 'image/png');
+
+  }catch(err){
+    showToast('保存に失敗しました：'+(err && err.message ? err.message : '不明なエラー'), 4000);
+  }finally{
+    page.remove();
+  }
+}
+
+function fileStamp(){
+  const d = new Date();
+  return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`;
+}
+</script>
+
+</body>
+</html>
